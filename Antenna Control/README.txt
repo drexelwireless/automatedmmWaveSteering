@@ -1,0 +1,8 @@
+This is the software to run on the RaspberryPi antenna controllers. 
+This assumes that the RALA antenna, RF switch, and stepper motor are wired to the proper ports as specified in their respective code sections.
+
+Currently, the two Pis in the lab (named mmWavePi1 and mmWavePi2) are configured to always run the RF switch and RALA control scripts on start up. Those files and compiled executeables are in the cpp folder. 
+The mmWave horn antenna on the stepper motor is controlled by the mmwave_control.py script in the python folder. This has to be manually started because the stepper motor has to be powered by a separate power supply and has to be facing 180 degrees, or the middle of the RALA's state 3 search area. 
+All of the scripts start a web server that listens for integer input on port 8080 (RALA antenna), 8081 (RF switch), and 8082 (mmWave horn/stepper antenna). The integer for the RALA and RF switch specifies which state to go to, while the mmWave horn expects an integer between 45 an 315 (which can be reconfigured) as a command for what degree to turn the horn to.
+
+For the mmWave automated steering to work, the RALA has to be wired so that the states increment in a clockwise direction or the mmWave horn antenna needs to be reversed (spin counter-clockwise as the degree input increases). The steering/search algorithm assumes that RALA state one points towards a 0 degree point, RALA state 2 points at the 90 degree point, RALA state 3 points at the 180 degree point, and RALA state 4 points at the 270 degree point.
